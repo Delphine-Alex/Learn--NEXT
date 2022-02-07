@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import TitlePage from '../../components/TitlePage';
+import Card from '../../components/ Card';
 
 const Index = () => {
     const [products, setProducts] = useState([]);
@@ -20,13 +21,8 @@ const Index = () => {
             <TitlePage title="Eshop" />
             <div className='shop_container'>
                 {products.map((product) => {
-                    return (
-                        <div key={product.id} className="product__card">
-                            <img src={product.image} alt="product" className='shop_image' />
-                            <p>{product.title}</p>
-                            <p>{product.price}</p>
-                        </div>
-                    )
+                    return <Card {...product} />
+
                 })}
             </div>
         </div>
