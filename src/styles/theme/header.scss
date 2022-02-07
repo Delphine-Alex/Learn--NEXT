@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.header {
+  &_main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_nav {
+    .nav_list {
+      display: flex;
+      list-style: none;
+    }
+    .nav_item {
+      margin: 0 20px;
+    }
+    .nav_link {
+      font-weight: bold;
+      font-size: 20px;
+      &:hover {
+        color: $primaryColor;
+      }
+    }
+  }
+}
