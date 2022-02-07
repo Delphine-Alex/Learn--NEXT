@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const Mainlayout = ({ children }) => {
+
     return (
         <div>
             <header>

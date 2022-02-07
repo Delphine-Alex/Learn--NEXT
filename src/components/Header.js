@@ -27,6 +27,11 @@ const Header = (props) => {
                             <a className='nav_link'>About</a>
                         </Link>
                     </li>
+                    <li className='nav_item'>
+                        <Link href="/shop">
+                            <a className='nav_link'>Shop</a>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
 
