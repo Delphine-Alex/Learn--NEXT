@@ -1,0 +1,13 @@
+.footer {
+  &__main {
+    padding: 10px;
+    background: $primaryColor;
+  }
+}
+
+.text {
+  &__center {
+    text-align: center;
+    color: white;
+  }
+}

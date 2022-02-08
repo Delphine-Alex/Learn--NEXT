@@ -32,6 +32,11 @@ const Header = (props) => {
                             <a className='nav_link'>Shop</a>
                         </Link>
                     </li>
+                    <li className='nav_item'>
+                        <Link href="/cart">
+                            <a className='nav_link'>Cart</a>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
 
