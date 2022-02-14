@@ -37,11 +37,11 @@ const Index = () => {
             localStorageCart.forEach(product => {
                 cartArray.push(product);
             });
-            //cartArray.push(localStorage.getItem("cart"));
+            // cartArray.push(localStorage.getItem("cart"));
             // Il faut parser pour récupérer une chaîne de caractère // string
-            //cartArray.push(JSON.parse(localStorage.getItem("cart")));
-            //console.log(cartArray);
-            console.log(cartArray);
+            // cartArray.push(JSON.parse(localStorage.getItem("cart")));
+            // console.log(cartArray);
+            // console.log(cartArray);
             cartArray.push(products);
             console.log(cartArray);
             localStorage.setItem("cart", JSON.stringify(cartArray));
