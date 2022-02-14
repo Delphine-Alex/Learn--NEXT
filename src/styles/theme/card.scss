@@ -1,5 +1,5 @@
 .shop_image {
-  //border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
   height: 200px;
   width: 150px;
   margin: auto;
@@ -7,13 +7,12 @@
 }
 
 .product__card {
-  border: $primaryColor 2px solid;
   display: flex;
   flex-direction: column;
-  //border-radius: 10px;
+  border-radius: 10px;
   width: 320px;
   margin: 25px;
-  //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .product__card::after {
