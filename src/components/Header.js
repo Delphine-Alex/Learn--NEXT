@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 import mypic from '../public/assets/img.png';
+import Button from './Button';
 
 const Header = (props) => {
     return (
@@ -36,6 +37,9 @@ const Header = (props) => {
                         <Link href="/cart">
                             <a className='nav_link'>Cart</a>
                         </Link>
+                    </li>
+                    <li className='nav_item'>
+                        <Button type="button" function={() => console.log("islogged")} title="login" />
                     </li>
                 </ul>
             </nav>
