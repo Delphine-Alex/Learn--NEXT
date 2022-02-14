@@ -15,32 +15,46 @@ const Index = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const result = await axios.get(`https://fakestoreapi.com/products/${id}`);
-            setProducts(result.data)
-            console.log(result.data);
+            try {
+                const result = await axios.get(`https://fakestoreapi.com/products/${id}`);
+                setProducts(result.data)
+                console.log(result.data);
+            } catch (err) {
+                err && console.error(err.message);
+            }
         }
         getData()
     }, [id]);
 
 
     const addToCart = (products) => {
+        const cartArray = [];
         // Première étape : vérifier si il y a un élément dans le localstorage
         // 1er cas : si un ou des produit(s) sont dans le localstorage
-        // On récupère ces éléments, on les stock dans un nouveau tableau et on ajoute le nouvel élément dans le tableau
-        // Réinsérer le tableau dans le localStorage
-        console.log(products);
-        // const localStorage = localStorage.setItem("price", JSON.stringify(products));
-        ocalStorage.setItem("price", JSON.stringify(products));
-        localStorage.getItem()
-        const verify = localStorage && localStorage.length > 0
-        const table = [];
+        // console.log(localStorage.getItem("cart"));
+        if (localStorage.getItem("cart")) {
+            const localStorageCart = JSON.parse(localStorage.getItem("cart"));
+            localStorageCart.forEach(product => {
+                cartArray.push(product);
+            });
+            //cartArray.push(localStorage.getItem("cart"));
+            // Il faut parser pour récupérer une chaîne de caractère // string
+            //cartArray.push(JSON.parse(localStorage.getItem("cart")));
+            //console.log(cartArray);
+            console.log(cartArray);
+            cartArray.push(products);
+            console.log(cartArray);
+            localStorage.setItem("cart", JSON.stringify(cartArray));
 
-        //const ... = table.push();
+            // On récupère ces éléments, on les stock dans un nouveau tableau et on ajoute le nouvel élément dans le tableau
+            // Réinsérer le tableau dans le localStorage
 
-
-
-    };
-
+        } else {
+            cartArray.push(products);
+            //localStorage.setItem("cart", JSON.stringify(products));
+            localStorage.setItem("cart", JSON.stringify(cartArray));
+        }
+    }
 
 
 
