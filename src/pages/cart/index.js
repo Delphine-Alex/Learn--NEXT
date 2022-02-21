@@ -11,6 +11,7 @@ const Index = () => {
         setValue(null);
     }
 
+
     useEffect(() => {
         const value = JSON.parse(localStorage.getItem("cart"));
         setValue(value);
@@ -24,8 +25,11 @@ const Index = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Titre</th>
-                                <th>Prix</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +37,11 @@ const Index = () => {
                                 <tr key={item.id}>
                                     <td>{item.title}</td>
                                     <td>{item.price}€</td>
+
+                                    <td>{item.quantity}</td>
+
+                                    <td>{item.price * item.quantity}€</td>
+                                    <td>x</td>
                                 </tr>
                             ))}
                         </tbody>

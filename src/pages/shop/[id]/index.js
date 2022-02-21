@@ -11,7 +11,6 @@ const Index = () => {
 
     const [products, setProducts] = useState(false);
     const { id } = router.query
-    //const id = router.query.id
 
     useEffect(() => {
         const getData = async () => {
@@ -27,22 +26,35 @@ const Index = () => {
     }, [id]);
 
 
+
+
     const addToCart = (products) => {
         const cartArray = [];
+        const productToInsert = {
+            quantity: 1,
+            title: products.title,
+            price: products.price,
+            id: products.id,
+            image: products.image
+        };
+
         // Première étape : vérifier si il y a un élément dans le localstorage
         // 1er cas : si un ou des produit(s) sont dans le localstorage
         // console.log(localStorage.getItem("cart"));
         if (localStorage.getItem("cart")) {
             const localStorageCart = JSON.parse(localStorage.getItem("cart"));
-            localStorageCart.forEach(product => {
+            localStorageCart.forEach((product) => {
                 cartArray.push(product);
             });
-            // cartArray.push(localStorage.getItem("cart"));
+
+            const checkId = cartArray.findIndex((product) => product.id === productToInsert.id);
+            if (checkId !== -1) {
+                cartArray[checkId].quantity += 1;
+            } else {
+                cartArray.push(productToInsert);
+            }
+
             // Il faut parser pour récupérer une chaîne de caractère // string
-            // cartArray.push(JSON.parse(localStorage.getItem("cart")));
-            // console.log(cartArray);
-            // console.log(cartArray);
-            cartArray.push(products);
             console.log(cartArray);
             localStorage.setItem("cart", JSON.stringify(cartArray));
 
@@ -50,7 +62,7 @@ const Index = () => {
             // Réinsérer le tableau dans le localStorage
 
         } else {
-            cartArray.push(products);
+            cartArray.push(productToInsert);
             //localStorage.setItem("cart", JSON.stringify(products));
             localStorage.setItem("cart", JSON.stringify(cartArray));
         }
