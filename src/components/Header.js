@@ -39,7 +39,14 @@ const Header = (props) => {
                         </Link>
                     </li>
                     <li className='nav_item'>
-                        <Button type="button" function={() => console.log("islogged")} title="login" />
+                        <Link href="/login">
+                            <a className='nav_link'>Login</a>
+                        </Link>
+                    </li>
+                    <li className='nav_item'>
+                        <Link href="/register">
+                            <a className='nav_link'>Register</a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
