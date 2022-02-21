@@ -37,6 +37,19 @@ const Index = () => {
         setValue(filteredCart)
     };
 
+    const initialValue = 0;
+    const sumWithInitial = value.reduce(
+        (total, product) => total + product.quantity * product.price,
+        initialValue
+    );
+
+    const totalQuantity = value.reduce(
+        (total, product) => total + product.quantity,
+        initialValue
+    );
+
+
+
     useEffect(() => {
         setValue(JSON.parse(localStorage.getItem("cart")) || []);
     }, []);
@@ -68,13 +81,17 @@ const Index = () => {
                                         <Button type="button" function={addOne} title="+" />
                                     </td>
 
-                                    <td>{(item.price * item.quantity).toFixed()}€</td>
+                                    <td>{(item.price * item.quantity).toFixed(2)}€</td>
+
                                     <td onClick={deleteProduct}>x</td>
+
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <Button title="Remove cart" type="button" function={deleteProduct} />
+
+                    <p>Total : {sumWithInitial}€, quantity: {totalQuantity}</p>
+                    <Button title="Remove cart" type="button" function={deleteCart} />
                 </div>
             ) : (
                 <p>Your cart is empty</p>
