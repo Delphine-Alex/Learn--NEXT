@@ -5,12 +5,12 @@ import TitlePage from '../../components/TitlePage';
 
 const Index = () => {
     const [value, setValue] = useState([]);
+    const [count, setCount] = useState(0);
 
     const deleteCart = () => {
         localStorage.removeItem("cart");
         setValue(null);
     }
-
 
     useEffect(() => {
         const value = JSON.parse(localStorage.getItem("cart"));
@@ -38,7 +38,11 @@ const Index = () => {
                                     <td>{item.title}</td>
                                     <td>{item.price}€</td>
 
-                                    <td>{item.quantity}</td>
+                                    <td>
+                                        <button onClick={() => setCount(count - 1)}>-</button>
+                                        {item.quantity}
+                                        <button onClick={() => setCount(count + 1)}>+</button>
+                                    </td>
 
                                     <td>{item.price * item.quantity}€</td>
                                     <td>x</td>

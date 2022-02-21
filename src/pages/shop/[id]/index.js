@@ -25,9 +25,6 @@ const Index = () => {
         getData()
     }, [id]);
 
-
-
-
     const addToCart = (products) => {
         const cartArray = [];
         const productToInsert = {
