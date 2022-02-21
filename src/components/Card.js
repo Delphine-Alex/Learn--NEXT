@@ -8,7 +8,7 @@ const Card = (product) => {
             <img src={product.image} alt="product" className='shop_image' />
             <p className='shop_title'>{product.title}</p>
             <p className='shop_price'>{product.price} €</p>
-            <button className='shop_button'>
+            <button className='btn__color-black'>
                 <Link href={`/shop/${product.id}`}>
                     <a>See product</a>
                 </Link>

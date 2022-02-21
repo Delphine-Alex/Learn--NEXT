@@ -82,7 +82,7 @@ const Index = () => {
             <Button
                 title="Add to card"
                 type="button"
-                classes="button"
+                classes="btn btn__volor-white"
                 function={() => addToCart(products)}
             />
         </div>

@@ -5,16 +5,40 @@ import TitlePage from '../../components/TitlePage';
 
 const Index = () => {
     const [value, setValue] = useState([]);
-    const [count, setCount] = useState(0);
 
     const deleteCart = () => {
         localStorage.removeItem("cart");
         setValue(null);
     }
 
+    const removeOne = (product) => {
+        const checkId = value.findIndex((el) => el.id === product.id);
+
+        if (checkId !== -1 && value[checkId].quantity > 1) {
+            value[checkId].quantity -= 1;
+        }
+        localStorage.setItem(("cart"), JSON.stringify(value));
+        setValue(JSON.parse(localStorage.getItem('cart')));
+    };
+
+    const addOne = (product) => {
+        const checkId = value.findIndex((el) => el.id === product.id);
+
+        if (checkId !== -1) {
+            value[checkId].quantity += 1;
+        }
+        localStorage.setItem("cart", JSON.stringify(value));
+        setValue(JSON.parse(localStorage.getItem('cart')));
+    }
+
+    const deleteProduct = (product) => {
+        const filteredCart = value.filter((item) => item.id !== product.id);
+        localStorage.setItem("cart", JSON.stringify(filteredCart));
+        setValue(filteredCart)
+    };
+
     useEffect(() => {
-        const value = JSON.parse(localStorage.getItem("cart"));
-        setValue(value);
+        setValue(JSON.parse(localStorage.getItem("cart")) || []);
     }, []);
 
     return (
@@ -39,18 +63,18 @@ const Index = () => {
                                     <td>{item.price}€</td>
 
                                     <td>
-                                        <button onClick={() => setCount(count - 1)}>-</button>
+                                        <Button type="button" function={removeOne} title="-" />
                                         {item.quantity}
-                                        <button onClick={() => setCount(count + 1)}>+</button>
+                                        <Button type="button" function={addOne} title="+" />
                                     </td>
 
-                                    <td>{item.price * item.quantity}€</td>
-                                    <td>x</td>
+                                    <td>{(item.price * item.quantity).toFixed()}€</td>
+                                    <td onClick={deleteProduct}>x</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <Button title="Remove cart" type="button" function={deleteCart} />
+                    <Button title="Remove cart" type="button" function={deleteProduct} />
                 </div>
             ) : (
                 <p>Your cart is empty</p>
