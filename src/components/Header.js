@@ -39,11 +39,6 @@ const Header = (props) => {
                         </Link>
                     </li>
                     <li className='nav_item'>
-                        <Link href="/login">
-                            <a className='nav_link'>Login</a>
-                        </Link>
-                    </li>
-                    <li className='nav_item'>
                         <Link href="/register">
                             <a className='nav_link'>Register</a>
                         </Link>

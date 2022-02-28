@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import Button from '../../../components/Button';
+import Title from '../../../components/Title';
 import Price from '../../../components/Price';
 import TitlePage from '../../../components/TitlePage';
+import Description from '../../../components/Description';
 
 
 import productsService from '../../../services/products.service';
@@ -32,7 +34,6 @@ const Index = () => {
         productsService.getProduct(id)
             .then((data) => {
                 setProducts(data.data);
-                console.log(data.data);
             })
             .catch(err => console.log(err))
     }, []);
@@ -90,8 +91,10 @@ const Index = () => {
             <p>Price: £{products.price}</p>
             <p>Includes VAT. Shipping calculated at checkout</p>
             <button className='shop_button'>Add to cart</button> */}
-            <p>{products.attributes.title}</p>
-            <p>{products.attributes.description}</p>
+            {/* <p>{products.attributes.title}</p>
+            <p>{products.attributes.description}</p> */}
+            <Title title={products && products.attributes.title} />
+            <Description description={products && products.attributes.description} />
             <Price price={products && products.attributes.price} currency="€" />
             <Button
                 title="Add to card"

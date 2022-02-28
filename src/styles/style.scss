@@ -1,8 +1,10 @@
 @import "./helpers/variables";
 @import "./base/base";
 @import "./theme/title";
-@import "./theme/header";
 @import "./theme/shop.scss";
-@import "./theme/footer";
 @import "./theme/card.scss";
 @import "./theme/button.scss";
+@import "./theme/input.scss";
+
+@import "./theme/footer";
+@import "./theme/header";
