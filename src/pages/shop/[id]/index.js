@@ -6,24 +6,36 @@ import Button from '../../../components/Button';
 import Price from '../../../components/Price';
 import TitlePage from '../../../components/TitlePage';
 
+
+import productsService from '../../../services/products.service';
+
 const Index = () => {
     const router = useRouter();
 
     const [products, setProducts] = useState(false);
     const { id } = router.query
 
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         try {
+    //             const result = await axios.get(`http://localhost:1337/api/products${id}`);
+    //             setProducts(result.data)
+    //         } catch (err) {
+    //             err && console.error(err.message);
+    //         }
+    //     }
+    //     getData()
+    // }, [id]);
+
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const result = await axios.get(`https://fakestoreapi.com/products/${id}`);
-                setProducts(result.data)
-                console.log(result.data);
-            } catch (err) {
-                err && console.error(err.message);
-            }
-        }
-        getData()
-    }, [id]);
+        const id = router.query.id;
+        productsService.getProduct(id)
+            .then((data) => {
+                setProducts(data.data);
+                console.log(data.data);
+            })
+            .catch(err => console.log(err))
+    }, []);
 
     const addToCart = (products) => {
         const cartArray = [];
@@ -78,7 +90,9 @@ const Index = () => {
             <p>Price: £{products.price}</p>
             <p>Includes VAT. Shipping calculated at checkout</p>
             <button className='shop_button'>Add to cart</button> */}
-            <Price price={products && products.price} currency="€" />
+            <p>{products.attributes.title}</p>
+            <p>{products.attributes.description}</p>
+            <Price price={products && products.attributes.price} currency="€" />
             <Button
                 title="Add to card"
                 type="button"
