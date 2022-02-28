@@ -25,9 +25,9 @@ const Index = () => {
         <div className='form'>
             <TitlePage title="Login" />
             <form onSubmit={handleSubmit}>
-                <Input type="text" title="Enter your email" value={email} onChange={handleChangeEmail} />
+                <Input type="text" title="Enter your email" id="firstName" label="firstName" required={true} value={email} onChange={handleChangeEmail} />
                 <Input type="text" title="Enter your password" value={password} onChange={handleChangePassword} />
-                <button onClick={handleSubmit}>Submit</button>
+                <Button type="submit" title="Submit" classes="btn btn__color-black" />
             </form >
         </div>
     );
