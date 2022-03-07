@@ -11,6 +11,7 @@ import Modal from '../../components/Modal';
 
 const Index = () => {
     const [inputs, setInputs] = useState({});
+    const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
     const submitRegister = async (e) => {
@@ -21,21 +22,31 @@ const Index = () => {
         userService.register(inputs)
             .then(
                 (data) => {
-                    console.log(data)
-                    localStorage.setItem('jwt', data.jwt)
-                    router.push('/profil')
+                    console.log(data);
+                    // Si la réponse contient des erreurs, j'affiche mon modal
+                    if (data.error) {
+                        setShowModal(true);
+                    } else {
+                        // Sinon mon utilisateur est inscrit
+                        localStorage.setItem('jwt', data.jwt)
+                        router.push('/profil')
+                    }
                 }
             )
-            .catch(err => console.log(err));
+            // Dans le cas où il y aurait des erreurs de type serveur
+            .catch((err) => {
+                console.log(err)
+            });
     }
 
     return (
         <div>
             <TitlePage title="Register" />
             <div className="page__register">
-                <Modal title="Title modal">
-                    <p>Paragraphe 2</p>
-                    <p>Paragraphe 2</p>
+                <Modal title="Erreur" isActive={showModal} type="information"
+                    closeFunction={() => setShowModal(!showModal)}
+                >
+                    <p>Une erreur est survenur, veillez contacter le service client.</p>
                 </Modal>
 
                 <form className="form" onSubmit={(e) => submitRegister(e)}>
@@ -90,7 +101,7 @@ const Index = () => {
                         placeholder="Veuillez saisir votre mot de passe"
                         handleChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                     />
-                    <Button title="envoyer" classes="btn btn__color-black" type="submit" />
+                    <Button title="Envoyer" classes="btn btn__color-black" type="submit" />
 
                 </form>
             </div>

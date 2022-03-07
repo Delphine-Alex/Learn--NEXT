@@ -5,10 +5,10 @@ const Modal = (props) => {
         <>
             {props.isActive ? (
                 <>
-                    <div className="overlay" onClick={props.closefunction}></div>
+                    <div className="overlay" onClick={props.closeFunction}></div>
                     <div className="modal">
                         <div className="modal__header">
-                            <div className="close__cross" onClick={props.closefunction}>
+                            <div className="close__cross" onClick={props.closeFunction}>
                                 <span></span>
                                 <span></span>
                             </div>
@@ -17,20 +17,18 @@ const Modal = (props) => {
                             <h2>{props.title}</h2>
                         </div>
                         <div className="modal__content">{props.children}</div>
-                        <div className="modal__actions">
-                            <button
-                                className="btn btn__color-white"
-                                onClick={props.closefunction}
-                            >
-                                Annuler
-                            </button>
-                            <button
-                                className="btn btn__color-black"
-                                onClick={props.validateFunction}
-                            >
-                                Valider
-                            </button>
-                        </div>
+                        {props.type !== "information" ? (
+                            <div className="modal__actions">
+                                <button className="btn btn__color-white" onClick={props.closeFunction} >
+                                    Annuler
+                                </button>
+                                <button className="btn btn__color-black" onClick={props.validateFunction} >
+                                    Valider
+                                </button>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </>
             ) : (
