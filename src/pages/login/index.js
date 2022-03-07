@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/router'
+
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TitlePage from '../../components/TitlePage';
@@ -8,11 +10,17 @@ import userService from '../../services/user.service';
 
 const Index = () => {
     const [inputs, setInputs] = useState({});
+    const router = useRouter();
 
     const submitRegister = async (e) => {
         e.preventDefault();
         console.log(inputs);
-        userService.register(inputs).then(data => console.log(data)).catch(err => console.log(err));
+        userService.register(inputs)
+            .then((data) => {
+                console.log(data)
+                router.push('/home')
+            })
+            .catch((err) => console.log(err));
     }
 
     return (

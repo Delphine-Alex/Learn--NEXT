@@ -1,26 +1,45 @@
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/router'
+
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import TitlePage from '../../components/TitlePage';
 
 import userService from '../../services/user.service';
+import Modal from '../../components/Modal';
 
 const Index = () => {
     const [inputs, setInputs] = useState({});
+    const router = useRouter();
 
     const submitRegister = async (e) => {
-        // Pour éviter que la page se recharge avec l'envoit du formulaire
+        // Pour éviter que la page se recharge avec l'envoi du formulaire
         e.preventDefault();
         //console.log(inputs);
-        userService.register(inputs).then(data => console.log(data)).catch(err => console.log(err));
+
+        userService.register(inputs)
+            .then(
+                (data) => {
+                    console.log(data)
+                    localStorage.setItem('jwt', data.jwt)
+                    router.push('/profil')
+                }
+            )
+            .catch(err => console.log(err));
     }
 
     return (
         <div>
             <TitlePage title="Register" />
             <div className="page__register">
+                <Modal title="Title modal">
+                    <p>Paragraphe 2</p>
+                    <p>Paragraphe 2</p>
+                </Modal>
+
                 <form className="form" onSubmit={(e) => submitRegister(e)}>
+
                     <Input
                         label="Username"
                         name="username"
@@ -72,6 +91,7 @@ const Index = () => {
                         handleChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                     />
                     <Button title="envoyer" classes="btn btn__color-black" type="submit" />
+
                 </form>
             </div>
         </div>
