@@ -39,9 +39,7 @@ const Header = (props) => {
                         </Link>
                     </li>
                     <li className='nav_item'>
-                        <Link href="/register">
-                            <a className='nav_link'>Register</a>
-                        </Link>
+                        <Button type="button" classes="btn btn__color-white" function={() => console.log("islogged")} title="login" />
                     </li>
                 </ul>
             </nav>
