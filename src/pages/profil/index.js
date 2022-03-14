@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import TitlePage from '../../components/TitlePage';
 
 import userService from '../../services/user.service';
+import withAuth from '../../HOC/withAuth';
 
 const Index = () => {
     const [profil, setProfil] = useState([])
@@ -27,4 +28,4 @@ const Index = () => {
     );
 }
 
-export default Index;
+export default withAuth(Index);
