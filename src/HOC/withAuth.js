@@ -20,6 +20,9 @@ const withAuth = (WrappedComponent) => {
         if (authVerified) {
             return <WrappedComponent {...props} />
         }
+        else {
+            return null
+        }
     }
 }
 

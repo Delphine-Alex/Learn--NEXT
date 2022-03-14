@@ -21,9 +21,9 @@ const Index = () => {
     return (
         <>
             <TitlePage title="Profil" />
-            <p>{profil.username}</p>
-            <p>{profil.name}</p>
-            <p>{profil.email}</p>
+            <p>{profil && profil.username}</p>
+            <p>{profil && profil.name}</p>
+            <p>{profil && profil.email}</p>
         </>
     );
 }
