@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 import Button from '../../../components/Button';
 import Title from '../../../components/Title';
@@ -15,49 +14,40 @@ const Index = () => {
     const router = useRouter();
 
     const [products, setProducts] = useState(false);
-    const { id } = router.query
-
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         try {
-    //             const result = await axios.get(`http://localhost:1337/api/products${id}`);
-    //             setProducts(result.data)
-    //         } catch (err) {
-    //             err && console.error(err.message);
-    //         }
-    //     }
-    //     getData()
-    // }, [id]);
 
     useEffect(() => {
+        if (!router.isReady) return;
         const id = router.query.id;
         productsService.getProduct(id)
             .then((data) => {
                 setProducts(data.data);
+                console.log(data.data);
             })
             .catch(err => console.log(err))
-    }, []);
+    }, [router.isReady]);
 
-    const addToCart = (products) => {
-        const cartArray = [];
+    const addToCart = (element) => {
+
+        // On crée un nouvel objet avec une nouvelle quantité
         const productToInsert = {
+            id: element.id,
+            image: element.image,
+            title: element.title,
+            price: element.price,
             quantity: 1,
-            title: products.title,
-            price: products.price,
-            id: products.id,
-            image: products.image
         };
+
+        const cartArray = [];
 
         // Première étape : vérifier si il y a un élément dans le localstorage
         // 1er cas : si un ou des produit(s) sont dans le localstorage
-        // console.log(localStorage.getItem("cart"));
         if (localStorage.getItem("cart")) {
             const localStorageCart = JSON.parse(localStorage.getItem("cart"));
             localStorageCart.forEach((product) => {
                 cartArray.push(product);
             });
 
-            const checkId = cartArray.findIndex((product) => product.id === productToInsert.id);
+            const checkId = cartArray.findIndex((el) => el.id === element.id);
             if (checkId !== -1) {
                 cartArray[checkId].quantity += 1;
             } else {
@@ -65,40 +55,24 @@ const Index = () => {
             }
 
             // Il faut parser pour récupérer une chaîne de caractère // string
-            console.log(cartArray);
             localStorage.setItem("cart", JSON.stringify(cartArray));
-
-            // On récupère ces éléments, on les stock dans un nouveau tableau et on ajoute le nouvel élément dans le tableau
-            // Réinsérer le tableau dans le localStorage
 
         } else {
             cartArray.push(productToInsert);
-            //localStorage.setItem("cart", JSON.stringify(products));
             localStorage.setItem("cart", JSON.stringify(cartArray));
         }
-    }
-
-
+    };
 
     return (
 
         <div key={products.id}>
             <TitlePage title="Product" />
-            {/* <img src={products.image} />
-            <p>{products.title}</p>
-            <div></div>
-            <p>{products.description}</p>
-            <p>Price: £{products.price}</p>
-            <p>Includes VAT. Shipping calculated at checkout</p>
-            <button className='shop_button'>Add to cart</button> */}
-            {/* <p>{products.attributes.title}</p>
-            <p>{products.attributes.description}</p> */}
             <Title title={products && products.attributes.title} />
             <Description description={products && products.attributes.description} />
             <Price price={products && products.attributes.price} currency="€" />
             <Button
-                title="Add to card"
                 type="button"
+                title="Add to card"
                 classes="btn btn__volor-white"
                 function={() => addToCart(products)}
             />

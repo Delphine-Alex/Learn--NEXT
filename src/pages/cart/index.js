@@ -6,6 +6,10 @@ import TitlePage from '../../components/TitlePage';
 const Index = () => {
     const [value, setValue] = useState([]);
 
+    useEffect(() => {
+        setValue(JSON.parse(localStorage.getItem("cart")) || []);
+    }, []);
+
     const deleteCart = () => {
         localStorage.removeItem("cart");
         setValue(null);
@@ -48,12 +52,6 @@ const Index = () => {
         initialValue
     );
 
-
-
-    useEffect(() => {
-        setValue(JSON.parse(localStorage.getItem("cart")) || []);
-    }, []);
-
     return (
         <div>
             <TitlePage title="Cart" />
@@ -62,6 +60,7 @@ const Index = () => {
                     <table>
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -72,19 +71,18 @@ const Index = () => {
                         <tbody>
                             {value.map((item) => (
                                 <tr key={item.id}>
+                                    <td>{item.id}</td>
                                     <td>{item.title}</td>
                                     <td>{item.price}€</td>
-
                                     <td>
-                                        <Button type="button" function={removeOne} title="-" />
+                                        <button onClick={() => removeOne(item)}>-</button>
                                         {item.quantity}
-                                        <Button type="button" function={addOne} title="+" />
+                                        <button onClick={() => addOne(item)}>+</button>
                                     </td>
-
                                     <td>{(item.price * item.quantity).toFixed(2)}€</td>
-
-                                    <td onClick={deleteProduct}>x</td>
-
+                                    <td>
+                                        <button onClick={() => deleteProduct(item)}>Delete</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

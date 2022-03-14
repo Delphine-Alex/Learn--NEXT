@@ -4,9 +4,8 @@ import Link from 'next/link';
 
 const Card = (product) => {
     return (
-        <div className="product__card" className="product__card">
-            <img src={product.attributes.image.data.attributes}
-                alt="product" className='shop_image' />
+        <div className="product__card">
+            {/* <img src={`http://localhost:1337${product.attributes.image.data.attributes.url}`} alt={product.attributes.title} className='shop_image' /> */}
             <p className='shop_title'>{product.attributes.title}</p>
             <p className='shop_price'>{product.attributes.price} €</p>
             <button className='btn__color-black'>

@@ -35,6 +35,7 @@ const Index = () => {
             )
             // Dans le cas où il y aurait des erreurs de type serveur
             .catch((err) => {
+                setShowModal(true);
                 console.log(err)
             });
     }
@@ -46,7 +47,7 @@ const Index = () => {
                 <Modal title="Erreur" isActive={showModal} type="information"
                     closeFunction={() => setShowModal(!showModal)}
                 >
-                    <p>Une erreur est survenur, veillez contacter le service client.</p>
+                    <p>Une erreur est survenue, veillez contacter le service client.</p>
                 </Modal>
 
                 <form className="form" onSubmit={(e) => submitRegister(e)}>
