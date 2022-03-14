@@ -22,11 +22,11 @@ export default {
             .then((res) => res.json());
     },
     getMe(jwt) {
-        return fetch(`${apiUrl}/auth/local/me`, {
+        return fetch(`${apiUrl}/users/me`, {
             method: "GET",
             headers: {
                 "Content-Type": "Application/json",
-                "Authorization": jwt
+                "Authorization": `Bearer ${jwt}`
             },
         })
             .then((res) => res.json());

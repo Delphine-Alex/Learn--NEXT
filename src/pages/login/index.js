@@ -14,7 +14,7 @@ const Index = () => {
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
-    const submitLogin = async (e) => {
+    const submitLogin = (e) => {
         e.preventDefault();
         console.log(inputs);
         userService.login(inputs)
@@ -25,6 +25,7 @@ const Index = () => {
                 } else {
                     // Sinon mon utilisateur est inscrit
                     //localStorage.setItem('jwt', data.jwt)
+                    localStorage.setItem('token', data.jwt)
                     router.push('/profil')
                 }
             })
